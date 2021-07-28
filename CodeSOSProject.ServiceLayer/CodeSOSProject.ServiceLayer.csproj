@@ -43,5 +43,11 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CodeSOSProject.DomainModels\CodeSOSProject.DomainModels.csproj">
+      <Project>{13f9c242-c5a2-42be-90d9-f6183ac8d028}</Project>
+      <Name>CodeSOSProject.DomainModels</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

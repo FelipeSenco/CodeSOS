@@ -9,7 +9,7 @@ namespace CodeSOSProject.DomainModels
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int VodeID { get; set; }
+        public int VoteID { get; set; }
 
         public int UserID { get; set; }
 
