@@ -48,6 +48,14 @@
       <Project>{13f9c242-c5a2-42be-90d9-f6183ac8d028}</Project>
       <Name>CodeSOSProject.DomainModels</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CodeSOSProject.Repositories\CodeSOSProject.Repositories.csproj">
+      <Project>{dec39edf-8217-4d2b-b70b-0a2cda7b76aa}</Project>
+      <Name>CodeSOSProject.Repositories</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeSOSProject.ViewModels\CodeSOSProject.ViewModels.csproj">
+      <Project>{d18b1475-7d29-4d47-b66a-c393097dc667}</Project>
+      <Name>CodeSOSProject.ViewModels</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

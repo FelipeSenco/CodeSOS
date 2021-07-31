@@ -138,6 +138,10 @@
       <Project>{13f9c242-c5a2-42be-90d9-f6183ac8d028}</Project>
       <Name>CodeSOSProject.DomainModels</Name>
     </ProjectReference>
+    <ProjectReference Include="CodeSOSProject.ViewModels\CodeSOSProject.ViewModels.csproj">
+      <Project>{d18b1475-7d29-4d47-b66a-c393097dc667}</Project>
+      <Name>CodeSOSProject.ViewModels</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
