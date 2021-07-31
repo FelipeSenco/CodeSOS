@@ -9,7 +9,7 @@ namespace CodeSOSProject.Repositories
     {
         void InsertCategory(Category c);
         void UpdateCategory(Category c);
-        void DeleteCategory(int id);
+        void DeleteCategory(int CategoryID);
         List<Category> GetCategories();
         List<Category> GetCategoryByCategoryID(int CategoryID);
     }

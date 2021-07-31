@@ -14,11 +14,9 @@ namespace CodeSOSProject.Repositories
         void UpdateQuestionViewsCount(int QuestionID, int value);
         void DeleteQuestion(int QuestionID);
         List<Question> GetQuestions();
-        Question GetQuestionByQuestionID(int QuestionID);
-        List<Question> GetQuestionsByCategoryID(int CategoryID);
-
-
+        Question GetQuestionByQuestionID(int QuestionID);      
     }
+
     public class QuestionsRepository : IQuestionsRepository
     {
         CodeSOSDatabaseDbContext db;
@@ -95,12 +93,6 @@ namespace CodeSOSProject.Repositories
         {
             Question question = db.Questions.Where(temp => temp.QuestionID == QuestionID).FirstOrDefault();
             return question;
-        }
-
-        public List<Question> GetQuestionsByCategoryID (int CategoryID)
-        {
-            List<Question> questions = db.Questions.Where(temp => temp.CategoryID == CategoryID).ToList();
-            return questions;
-        }
+        }        
     }
 }

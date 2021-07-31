@@ -10,7 +10,7 @@ namespace CodeSOSProject.Repositories
     {
         void InsertAnswer(Answer a);
         void UpdateAnswer(Answer a);
-        void UpdateAnswerVotesCount(int answerID, int UserID, int value);
+        void UpdateAnswerVotesCount(int AnswerID, int UserID, int value);
         void DeleteAnswer(int AnswerID);
         List<Answer> GetAnswersByQuestionID(int QuestionID);
         List<Answer> GetAnswersByAnswerID(int AnswerID);
