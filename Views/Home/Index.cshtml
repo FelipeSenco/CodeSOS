@@ -1,7 +1,33 @@
-﻿@{
+﻿@model List<CodeSOSProject.ViewModels.QuestionViewModel>
+@{
     ViewBag.Title = "Home";
 }
 
 <div>
-    <h1>Hello</h1>
+    <div class="col-sm-12">
+        <div class="h-100 p-5 learnShareBuild">
+            <h1>Learn, share, Build!</h1>
+            <h3>Each month, over **** developers come to CodeSOS to learn and share their skills.</h3>
+            <p class="lead">Join us on this pursue to be better developers</p>
+        </div>
+    </div>    
 </div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <table class="table">
+            @foreach (var item in Model)
+            {
+                Html.RenderPartial("QuestionRow", item);
+            }
+        </table>
+        @if (Session["CurrentUserName"] != null)
+            {
+                <a href="/question/create" class="btn btn-primary">Add Question</a>
+            }
+    </div>
+</div>
+
+<script>
+    $("a[href='/home/index']").attr("id", "active");
+</script>
