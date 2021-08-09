@@ -22,7 +22,7 @@ namespace CodeSOSProject.ViewModels
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [RegularExpression(@"^[a-zA-Z]*$")]
+        [RegularExpression(@"^[a-zA-Z ]*$")]
         public string Name { get; set; }
 
         [Required]

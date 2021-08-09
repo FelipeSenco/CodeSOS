@@ -25,5 +25,15 @@ namespace CodeSOS.Controllers
            List<QuestionViewModel> qvm = this.questionService.GetQuestions().Take(10).ToList();
             return View(qvm);
         }
+
+        public ActionResult About()
+        {
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            return View();
+        }
     }
 }
