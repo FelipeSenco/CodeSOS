@@ -43,5 +43,51 @@ namespace CodeSOS.Controllers
                 return View();
             }
         }
+
+        //GET: /Account/Login
+        public ActionResult Login()
+        {
+            LoginViewModel lvm = new LoginViewModel();
+            return View(lvm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(LoginViewModel lvm)
+        {
+            if (ModelState.IsValid)
+            {
+                UserViewModel uvm = this.userService.GetUsersByEmailAndPassword(lvm.Email, lvm.Password);
+
+                if (uvm != null)
+                {
+                    Session["CurrentUserID"] = uvm.UserID;
+                    Session["CurrentUserName"] = uvm.Name;
+                    Session["CurrentUserEmail"] = uvm.Email;
+                    Session["CurrentUserPassword"] = uvm.Password;
+                    Session["CurrentUserIsAdmin"] = uvm.IsAdmin;
+
+                    if (uvm.IsAdmin)
+                    {
+                        return RedirectToRoute(new { area = "admin", controller = "AdminHome", action = "Index"});
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("x", "Invalid Email / Password");
+                    return View(lvm);
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("x", "Invalid Data");
+                return View(lvm);
+            }
+            
+        }
     }
 }

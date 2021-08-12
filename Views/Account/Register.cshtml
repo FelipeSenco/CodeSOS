@@ -25,7 +25,7 @@
 
             <div class="row">
 
-                <div class="col-sm-6">
+                <div class="form-group col-sm-6">
                     <label for="txtEmail">Email</label>
                     <input type="email" class="form-control" id="txtEmail" placeholder="Enter email" name="Email" required />
                     <div class="valid-feedback">
@@ -34,6 +34,7 @@
                     <div class="invalid-feedback">
                         Please enter your email
                     </div>
+                    <small class="email-exist text-danger"></small>
                 </div>
 
                 <div class="col-sm-6">
@@ -101,4 +102,23 @@
     function escapeRegExp(str) {
         return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
     }
+
+    $("#txtEmail").blur(function() {
+        $.ajax({
+            url: "/api/account?email=" + $("#txtEmail").val(),
+            type: "GET",
+            success: function (res) {                
+                if (res) {
+                    $(".email-exist").text("");
+                    $(".email-exist").parent(".form-group").find(".valid-feedback").show();
+                } else {
+                    $(".email-exist").text("Email already registered");
+                    $(".email-exist").parent(".form-group").find(".valid-feedback").hide();
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        })
+    });
 </script>
