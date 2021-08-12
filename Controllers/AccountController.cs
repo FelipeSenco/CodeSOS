@@ -86,8 +86,68 @@ namespace CodeSOS.Controllers
             {
                 ModelState.AddModelError("x", "Invalid Data");
                 return View(lvm);
+            }            
+        }
+
+        //Logout action
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("Index", "Home");
+        }
+
+        //GET: account/ChangeProfile
+        public ActionResult EditProfile()
+        {
+            int userID = Convert.ToInt32(Session["CurrentUserID"]);
+            UserViewModel uvm =  this.userService.GetUsersByUserID(userID);
+            EditUserDetailsViewModel eudvm = new EditUserDetailsViewModel() { Name = uvm.Name, Email = uvm.Email, Mobile = uvm.Mobile, UserID = uvm.UserID };
+            return View(eudvm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProfile(EditUserDetailsViewModel eudvm)
+        {
+            if (ModelState.IsValid)
+            {
+                eudvm.UserID = Convert.ToInt32(Session["CurrentUserID"]);
+                this.userService.UpdateUserDetails(eudvm);
+                Session["CurrentUserName"] = eudvm.Name;
+                return RedirectToAction("Index", "Home")
+;            }
+            else
+            {
+                ModelState.AddModelError("x", "Invalid Data");
+                return View(eudvm);
             }
-            
+        }
+
+        //GET: account/ChangePassword
+        public ActionResult ChangePassword()
+        {
+            int userID = Convert.ToInt32(Session["CurrentUserID"]);
+            UserViewModel uvm = this.userService.GetUsersByUserID(userID);
+            EditUserPasswordViewModel eupvm = new EditUserPasswordViewModel() { Email = uvm.Email, Password = "", ConfirmPassword = "", UserID = uvm.UserID};
+            return View(eupvm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(EditUserPasswordViewModel eupvm)
+        {
+            if (ModelState.IsValid)
+            {
+                eupvm.UserID = Convert.ToInt32(Session["CurrentUserID"]);
+                this.userService.UpdateUserPassword(eupvm);                
+                return RedirectToAction("Index", "Home")
+;
+            }
+            else
+            {
+                ModelState.AddModelError("x", "Invalid Data");
+                return View(eupvm);
+            }
         }
     }
 }

@@ -1,0 +1,71 @@
+﻿@model CodeSOSProject.ViewModels.EditUserDetailsViewModel
+
+@{
+    ViewBag.Title = "Edit Profile";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <h1>Edit Profile</h1>
+        <form novalidate="novalidate" action="/account/editprofile" method="post" class="needs-validation">
+
+            @Html.AntiForgeryToken()
+
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <label for="txtName">Name</label>
+                    <input type="text" class="form-control" id="txtName" placeholder="Enter name" name="Name" required pattern="^[a-zA-Z ]*$" autofocus="autofocus" value="@Model.Name"/>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please enter a valid name
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="form-group col-sm-6">
+                    <label for="txtEmail"></label>
+                    @Html.HiddenFor(temp => temp.Email)                  
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="txtMobile">Mobile</label>
+                    <input type="text" class="form-control" id="txtMobile" placeholder="Enter mobile" name="Mobile" required pattern="^[6789]\d{9}$" value="@Model.Mobile"/>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please enter your mobile. Ex: 797978787
+                    </div>
+                </div>
+
+            </div>            
+
+            <button type="submit" class="btn btn-primary mt-4">Update profile</button>
+
+        </form>
+    </div>
+</div>
+
+<script>
+
+    $("a[href='/account/editprofile']").attr("id", "active");
+
+    $(document).on("submit", ".needs-validation", validate);
+
+    $(".needs-validation input").blur(validate);
+
+    function validate(event) {
+        if ($(".needs-validation")[0].checkValidity() == false) {
+            event.preventDefault();
+        }
+
+        $(".needs-validation")[0].classList.add("was-validated");
+    } 
+</script>
+
