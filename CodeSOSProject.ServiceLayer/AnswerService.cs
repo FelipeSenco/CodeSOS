@@ -18,7 +18,7 @@ namespace CodeSOSProject.ServiceLayer
         List<AnswerViewModel> GetAnswersByQuestionID(int QuestionID);
         AnswerViewModel GetAnswersByAnswerID(int AnswerID);
     }
-    public class AnswerService
+    public class AnswerService : IAnswerService
     {
         IAnswersRepository answersRepository;
 

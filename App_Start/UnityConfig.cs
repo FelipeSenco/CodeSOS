@@ -16,6 +16,8 @@ namespace CodeSOS
             container.RegisterType<IQuestionService, QuestionService>();
             container.RegisterType<IUserService, UsersService>();
             container.RegisterType<ICategoryService, CategoryService>();
+            container.RegisterType<IAnswerService, AnswerService>();
+
             DependencyResolver.SetResolver(new Unity.Mvc5.UnityDependencyResolver(container));
             GlobalConfiguration.Configuration.DependencyResolver = new Unity.WebApi.UnityDependencyResolver(container);
         }
