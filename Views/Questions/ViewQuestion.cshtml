@@ -95,7 +95,7 @@
 
                             <div class="row">
                                 <div class="form-group col-sm-12">
-                                    <textarea class="form-control" id="txtAnswer" placeholder="Your answer" required>@Model.Answers[i].AnswerText</textarea>
+                                    <textarea class="form-control" id="txtAnswer" name="AnswerText" placeholder="Your answer" required>@Model.Answers[i].AnswerText</textarea>
                                 </div>
                                 <div class="valid-feedback">
                                     Looks good!
@@ -146,7 +146,7 @@
 
                             <div class="row">
                                 <div class="form-group col-sm-12">
-                                    <textarea class="form-control" id="txtAnswer" name="AnswerText" placeholder="Your answer" required></textarea>
+                                    <textarea class="form-control" id="txtAnswer" name="AnswerText" placeholder="Your answer" autofocus required></textarea>
                                 </div>
                                 <div class="valid-feedback">
                                     Looks good!
@@ -172,7 +172,7 @@
    
     $(document).on("submit", ".needs-validation", validate);
 
-    $(".needs-validation input").blur(validate);
+    $(".needs-validation textarea").blur(validate);
 
     function validate(event) {
         if ($(".needs-validation")[0].checkValidity() == false) {
@@ -246,4 +246,16 @@
                 });
             }
          });
+</script>
+
+<script>
+    $(".editButton").click(function () {
+
+        $(this).parent().find(".needs-validation").show();
+        $(this).hide();
+        $(this).parent().find(".answer").hide();
+
+    });
+    
+
 </script>

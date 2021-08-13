@@ -51,10 +51,60 @@ namespace CodeSOS.Controllers
             {
                 ModelState.AddModelError("x", "Invalid Data");
                 QuestionViewModel qvm = this.questionService.GetQuestionByQuestionID(navm.QuestionID, navm.UserID);
-                return View("ViewQuestion", qvm.QuestionID);
+                return RedirectToAction("ViewQuestion", new { id = navm.QuestionID });
             }
         }
 
+        //EditAnswer Action
+        [HttpPost]
+        [UserAuthorizationFilter]
+        public ActionResult EditAnswer(EditAnswerViewModel eavm)
+        {
+            if (ModelState.IsValid)
+            {
+                eavm.UserID = Convert.ToInt32(Session["CurrentUserID"]);
+                this.answerService.UpdateAnswer(eavm);
+                return RedirectToAction("ViewQuestion", new { id = eavm.QuestionID });
+            }
+            else
+            {
+                ModelState.AddModelError("x", "Invalid Data");
+                return RedirectToAction("ViewQuestion", new { id = eavm.QuestionID });
+            }                    
+        }
+
+        //Get questions/Create       
+        public ActionResult Create()
+        {
+            List<CategoryViewModel> cvm = this.categoryService.GetCategories();
+            ViewBag.categories = cvm;
+            return View();
+        }
+
+        //Post questions/Create
+        [HttpPost]
+        [UserAuthorizationFilter]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(NewQuestionViewModel nqvm)
+        {
+            if (ModelState.IsValid)
+            {
+                nqvm.AnswersCount = 0;
+                nqvm.ViewsCount = 0;
+                nqvm.VotesCount = 0;
+                nqvm.QuestionDateAndTime = DateTime.Now;
+                nqvm.UserID = Convert.ToInt32(Session["CurrentUserID"]);
+
+                this.questionService.InsertQuestion(nqvm);
+
+                return RedirectToAction("Questions", "Home");
+            }
+            else
+            {
+                ModelState.AddModelError("x", "Invalid data");
+                return View();
+            }
+        }
 
     }
 }
