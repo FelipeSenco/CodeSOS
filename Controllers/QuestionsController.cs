@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using CodeSOSProject.ViewModels;
 using CodeSOSProject.ServiceLayer;
+using CodeSOS.CustomFilters;
 
 namespace CodeSOS.Controllers
 {
@@ -34,6 +35,7 @@ namespace CodeSOS.Controllers
         //AddAnswer Action
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [UserAuthorizationFilter]
         public ActionResult AddAnswer(NewAnswerViewModel navm)
         {
             navm.UserID = Convert.ToInt32(Session["CurrentUserID"]);

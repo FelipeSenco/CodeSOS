@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using CodeSOSProject.ViewModels;
 using CodeSOSProject.ServiceLayer;
+using CodeSOS.CustomFilters;
 
 namespace CodeSOS.Controllers
 {
@@ -96,7 +97,9 @@ namespace CodeSOS.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //GET: account/ChangeProfile
+        
+        //GET: account/EditProfile
+        [UserAuthorizationFilter]
         public ActionResult EditProfile()
         {
             int userID = Convert.ToInt32(Session["CurrentUserID"]);
@@ -105,6 +108,9 @@ namespace CodeSOS.Controllers
             return View(eudvm);
         }
 
+
+        [UserAuthorizationFilter]
+        //Post Account/EditProfile
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditProfile(EditUserDetailsViewModel eudvm)
@@ -124,6 +130,7 @@ namespace CodeSOS.Controllers
         }
 
         //GET: account/ChangePassword
+        [UserAuthorizationFilter]
         public ActionResult ChangePassword()
         {
             int userID = Convert.ToInt32(Session["CurrentUserID"]);
@@ -134,6 +141,7 @@ namespace CodeSOS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [UserAuthorizationFilter]
         public ActionResult ChangePassword(EditUserPasswordViewModel eupvm)
         {
             if (ModelState.IsValid)
