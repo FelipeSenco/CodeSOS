@@ -14,6 +14,7 @@ namespace CodeSOS.Controllers
         IAnswerService answerService;
         ICategoryService categoryService;
 
+        //Constructor
         public QuestionsController(IQuestionService questionService, IAnswerService answerService, ICategoryService categoryService)
         {
             this.questionService = questionService;
@@ -22,12 +23,36 @@ namespace CodeSOS.Controllers
         }
 
         // GET: Questions/View
-        public ActionResult ViewQuestion(int questionID)
+        public ActionResult ViewQuestion(int id)
         {
-            this.questionService.UpdateQuestionViewsCount(questionID, 1);
+            this.questionService.UpdateQuestionViewsCount(id, 1);
             int userID = Convert.ToInt32(Session["CurrentUserID"]);
-            QuestionViewModel qvm = this.questionService.GetQuestionByQuestionID(questionID, userID);
+            QuestionViewModel qvm = this.questionService.GetQuestionByQuestionID(id, userID);
             return View(qvm);
         }
+
+        //AddAnswer Action
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddAnswer(NewAnswerViewModel navm)
+        {
+            navm.UserID = Convert.ToInt32(Session["CurrentUserID"]);
+            navm.AnswerDateAndTime = DateTime.Now;
+            navm.VotesCount = 0;
+
+            if (ModelState.IsValid)
+            {
+                this.answerService.InsertAnswer(navm);
+                return RedirectToAction("ViewQuestion", new { id = navm.QuestionID });
+            }
+            else
+            {
+                ModelState.AddModelError("x", "Invalid Data");
+                QuestionViewModel qvm = this.questionService.GetQuestionByQuestionID(navm.QuestionID, navm.UserID);
+                return View("ViewQuestion", qvm.QuestionID);
+            }
+        }
+
+
     }
 }
